@@ -1,0 +1,35 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:0-18",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "json.schemas": [
+          {
+            "fileMatch": [
+              "*/devcontainer-feature.json"
+            ],
+            "url": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainerFeature.schema.json"
+          }
+        ]
+      },
+      "extensions": [
+        "mads-hartmann.bash-ide-vscode",
+        "ms-vscode.makefile-tools"
+      ]
+    }
+  },
+  "portsAttributes": {
+    "5000": {
+      "label": "bash ide helper",
+      "onAutoForward": "ignore"
+    }
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "installDockerBuildx": false
+    }
+  },
+  "postCreateCommand": "npm install -g @devcontainers/cli",
+  // this will add hover annotations in shell script files, assuming mads-hartmann.bash-ide-vscod is installed
+  "postAttachCommand": "docker container run --quiet --name explainshell --restart always -p 5000:5000 -d spaceinvaderone/explainshell"
+}
